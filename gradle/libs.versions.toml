@@ -1,0 +1,17 @@
+# ============================================================
+#  Xspace — version catalog
+#  The SINGLE source of truth for tool + dependency versions.
+#  Only entries that are actually referenced live here.
+# ============================================================
+
+[versions]
+# Build toolchain (current stable as of 2026-07)
+agp = "9.3.0"        # Android Gradle Plugin
+kotlin = "2.4.10"    # Kotlin
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+kotlinAndroid     = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
+# [libraries] — added as each module needs them (androidx-core,
+# compose, etc.). Nothing declared until it is referenced.
