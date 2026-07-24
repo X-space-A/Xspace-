@@ -1,0 +1,82 @@
+# ============================================================
+#  Xspace .gitignore  —  Android + Gradle + NDK + GitHub Actions
+#  Original file. Covers build outputs, IDE state, secrets,
+#  and OUR kernels' runtime caches (which must never be committed).
+#  NOTE: .github/workflows/ is COMMITTED (it is our CI), not ignored.
+# ============================================================
+
+# --- Gradle -------------------------------------------------
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/**/build/
+
+# --- Android / IDE -----------------------------------------
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+local.properties         # SDK/NDK paths + secrets — NEVER commit
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+proguard/
+output-metadata.json
+
+# --- C / C++ / NDK native build artifacts ------------------
+*.o
+*.obj
+*.a
+*.so                     # we BUILD natives from source; never vendor binaries
+*.dll
+*.dylib
+CMakeFiles/
+CMakeCache.txt
+CMakeScripts/
+cmake-build-*/
+Makefile
+compile_commands.json
+
+# --- Java / Kotlin crash dumps -----------------------------
+hs_err_pid*
+replay_pid*
+
+# --- Python (helper scripts, if any) -----------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# --- Xspace runtime caches (FORGE / PISTON / ORACLE) -------
+# Downloaded on-device; committing them would bloat the repo and
+# ship third-party binaries (forbidden by the originality rule).
+**/.xspace-cache/
+**/LIBERTY/.download/
+**/LIBERTY/provenance.local.json
+**/Minecraft/.cache/
+**/DI/models/
+**/crash-logs/
+*.log
+
+# --- Signing / secrets -------------------------------------
+*.keystore
+*.jks
+signing/
+release/
+
+# --- OS noise ----------------------------------------------
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# --- Misc --------------------------------------------------
+*.tmp
+*.bak
+*.swp
+*~
