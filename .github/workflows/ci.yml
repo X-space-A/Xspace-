@@ -1,0 +1,41 @@
+# ============================================================
+#  Xspace CI — Stop 1: prove the Gradle skeleton configures.
+#  When the first module (:SPACE) lands, the final step upgrades
+#  to: ./gradlew :SPACE:assembleDebug  (+ lint + unit tests).
+# ============================================================
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  gradle-configure-check:
+    name: Gradle configure check (skeleton)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Install Gradle 9.6.1
+        run: |
+          curl -fsSL https://services.gradle.org/distributions/gradle-9.6.1-bin.zip -o /tmp/gradle.zip
+          unzip -q /tmp/gradle.zip -d /opt
+          echo "/opt/gradle-9.6.1/bin" >> "$GITHUB_PATH"
+
+      - name: Generate Gradle wrapper
+        run: gradle wrapper --gradle-version 9.6.1 --no-daemon
+
+      - name: Verify wrapper works
+        run: ./gradlew --version --no-daemon
+
+      - name: Verify project configures
+        run: ./gradlew projects --no-daemon
